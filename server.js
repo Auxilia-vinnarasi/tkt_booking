@@ -9,6 +9,8 @@ connectDB();
 app.use(express.json());
 
 app.use("/api/users",require("./routes/usersRoute"));
+app.use("/api/buses",require("./routes/busesRoute"));
+app.use("/api/bookings",require("./routes/bookingsRoute"));
 
 const port=process.env.port || 5000;
 
