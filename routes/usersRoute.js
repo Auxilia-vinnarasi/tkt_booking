@@ -103,5 +103,45 @@ router.post("/get-user-by-id",authMiddleware,async(req,res)=>{
 })
 //not only get user by id , all the protected routes we have to use this authmiddleware..
 
+//get-all-users
+router.post("/get-all-users",authMiddleware,async(req,res)=>{
+//   const getAllUsers=async(req,res)=>{
+  try{
+    const users=await User.find(req.body);
+    return res.send({
+      message:"User fetched successfully",
+      success:true,
+      data:users,
+    })
+  }
+  catch(err){
+    return res.send({
+      message:err.message,
+      success:false,
+      data:null,
+    })
+
+  }
+});
+
+//update user
+router.post("/update-user-permissions",async(req,res)=>{
+// const updateUserPermissions=async(req,res)=>{
+  try{
+await User.findByIdAndUpdate(req.body._id,req.body)
+return res.status(200).json({
+  success:true,
+  message:"user permissions updated successfully...",
+  data:null,
+})
+  }
+  catch(err){
+    console.log(err);
+    return res.status(500).json({
+      success:false,
+      message:"Error: " + err,
+    })
+  }
+});
 
 module.exports = router;
