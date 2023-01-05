@@ -46,6 +46,13 @@ router.post("/login",async(req,res)=>{
         success:false,
       })
     }
+    if(userExists.isBlocked){
+      return res.send({
+        success:false,
+        message:"Your Account is blocked...please contact the Admin..",
+        data:null,
+      })
+    }
     //compare password with hashed password
     const passwordMatch=await bcrypt.compare(req.body.password,userExists.password);
     if(!passwordMatch){
